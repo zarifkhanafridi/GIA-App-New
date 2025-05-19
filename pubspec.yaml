@@ -1,0 +1,95 @@
+name: academy
+
+description: A new Flutter project.
+version: 1.0.0+1
+
+environment:
+  sdk: "3.3.4 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  percent_indicator: ^4.2.3
+  http: ^1.1.2
+  hive_flutter: ^1.1.0
+  flutter_svg: ^2.0.9
+  youtube_player_flutter: ^8.1.2
+  html: ^0.15.4
+  package_info_plus: ^5.0.1
+  flutter_platform_widgets: ^6.0.2
+  syncfusion_flutter_pdfviewer: ^24.1.46
+  invoiceninja: ^0.0.11
+
+  flutter_html: ^3.0.0-beta.2
+  ndialog: ^4.3.1
+  lottie: ^3.0.0
+  slide_drawer: ^1.0.3
+  fluttertoast: ^8.2.4
+  photo_view: ^0.14.0
+  google_fonts: ^6.1.0
+  get: ^4.6.6
+  hive: ^2.2.3
+  path_provider: ^2.1.2
+  intl: ^0.19.0
+  url_launcher: ^6.2.3
+  clipboard: ^0.1.3
+  upgrader: ^9.0.0
+  flutter_screenutil: ^5.9.0
+  image_picker: ^1.0.7
+  animate_do: ^3.1.2
+  flutter_staggered_animations:
+  device_info_plus: ^9.1.2
+  rename_app: ^1.3.2
+  flutter_rating_bar: ^4.0.1
+  persistent_shopping_cart: ^0.0.7
+  flutter_native_splash:
+  sqflite: ^2.3.3+1
+#  screen_capture_restrictions: ^1.1.0
+  flutter_windowmanager: ^0.2.0
+  pinput: ^5.0.0
+  screen_capture_event: ^1.2.0
+  lecle_yoyo_player: ^0.0.8
+  youtube_explode_dart: ^2.3.9
+  chewie: ^1.7.0
+  video_player: ^2.7.0
+  vimeo_player_flutter: ^0.1.0
+  pod_player: ^0.2.1
+  youtube_player_iframe: ^5.0.0
+
+dependency_overrides:
+  invoiceninja: ^0.0.11 # Keep the desired invoiceninja version
+  http: ^0.13.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_native_splash: ^2.3.9
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/logo.png"
+  min_sdk_android: 21
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/icons/nativeSplash.png"
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+          weight: 800
