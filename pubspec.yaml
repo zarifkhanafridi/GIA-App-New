@@ -48,7 +48,7 @@ dependencies:
 #  screen_capture_restrictions: ^1.1.0
   flutter_windowmanager: ^0.2.0
   pinput: ^5.0.0
-  screen_capture_event: ^1.2.0
+  # screen_capture_event: ^1.2.0
   lecle_yoyo_player: ^0.0.8
   youtube_explode_dart: ^2.3.9
   chewie: ^1.7.0
@@ -56,6 +56,7 @@ dependencies:
   vimeo_player_flutter: ^0.1.0
   pod_player: ^0.2.1
   youtube_player_iframe: ^5.0.0
+  flutter_prevent_screenshot: ^0.0.1+16
 
 dependency_overrides:
   invoiceninja: ^0.0.11 # Keep the desired invoiceninja version

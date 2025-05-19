@@ -8,9 +8,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:persistent_shopping_cart/persistent_shopping_cart.dart';
+import 'package:flutter_prevent_screenshot/disablescreenshot.dart';
+import 'package:flutter/foundation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+   
+  final _preventScreenshot = FlutterPreventScreenshot.instance;
+  // Prevent screenshots globally
+  await _preventScreenshot.screenshotOff();
+  if (kDebugMode) {
+    print("Screenshot protection ON (globally from main)");
+  }
   await PersistentShoppingCart().init();
   await Hive.initFlutter();
   await Hive.openBox('box');

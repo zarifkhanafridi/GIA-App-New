@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:academy/data/app_exceptions.dart';
 import 'package:academy/data/network/base_api_services.dart';
 import 'package:flutter/foundation.dart';
