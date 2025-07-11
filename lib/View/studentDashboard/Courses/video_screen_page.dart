@@ -17,10 +17,6 @@ class VideoScreen extends StatefulWidget {
   _VideoScreenState createState() => _VideoScreenState();
 }
 
-
-
-
-
 // class _VideoScreenState extends State<VideoScreen> {
 //   late final List<YoutubePlayerController> _controllers;
 //
@@ -119,7 +115,6 @@ const List<String> _videoIds = [
   'j61j9X4xCnA',
 ];
 
-
 class _VideoScreenState extends State<VideoScreen> {
   late YoutubePlayerController _controller;
 
@@ -127,10 +122,10 @@ class _VideoScreenState extends State<VideoScreen> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      params: const YoutubePlayerParams(showVideoAnnotations: true,
+      params: const YoutubePlayerParams(
+        showVideoAnnotations: true,
         enableKeyboard: true,
         strictRelatedVideos: false,
-
         enableCaption: true,
         playsInline: false,
         enableJavaScript: false,
