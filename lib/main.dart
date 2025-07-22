@@ -13,12 +13,14 @@ import 'package:flutter/foundation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   
-  final _preventScreenshot = FlutterPreventScreenshot.instance;
-  // Prevent screenshots globally
-  await _preventScreenshot.screenshotOff();
-  if (kDebugMode) {
+  if (!kDebugMode) {
     print("Screenshot protection ON (globally from main)");
+    final _preventScreenshot = FlutterPreventScreenshot.instance;
+    // Prevent screenshots globally
+    await _preventScreenshot.screenshotOff();
+  }
+  if (kDebugMode) {
+    print("Screenshot protection OFF (globally from main)");
   }
   await PersistentShoppingCart().init();
   await Hive.initFlutter();

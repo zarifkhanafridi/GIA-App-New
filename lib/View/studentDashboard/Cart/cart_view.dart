@@ -32,10 +32,24 @@ class _CartViewState extends State<CartView> {
           child: Column(
             children: [
               Expanded(
-                child: PersistentShoppingCart().showCartItems(
-                  cartTileWidget: ({required data}) =>
-                      CartTileWidget(data: data),
-                  showEmptyCartMsgWidget: const EmptyCartMsgWidget(),
+                child:
+                    // PersistentShoppingCart().showCartItems(
+                    //   cartTileWidget: ({required data}) =>
+                    //       CartTileWidget(data: data),
+                    //   showEmptyCartMsgWidget: const EmptyCartMsgWidget(),
+                    // ),
+                    PersistentShoppingCart().showCartItems(
+                  cartItemsBuilder: (context, cartItems) {
+                    if (cartItems.isEmpty) {
+                      return const EmptyCartMsgWidget();
+                    }
+                    return ListView.builder(
+                      itemCount: cartItems.length,
+                      itemBuilder: (context, index) {
+                        return CartTileWidget(data: cartItems[index]);
+                      },
+                    );
+                  },
                 ),
               ),
               PersistentShoppingCart().showTotalAmountWidget(

@@ -10,7 +10,8 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: UpgradeAlert(
         shouldPopScope: () => true,
-        canDismissDialog: true,
+        // canDismissDialog: true,
+        barrierDismissible: false,
         dialogStyle: Platform.isAndroid
             ? UpgradeDialogStyle.material
             : UpgradeDialogStyle.cupertino,

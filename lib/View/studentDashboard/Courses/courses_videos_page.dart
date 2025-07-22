@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:academy/View/commonPage/background.dart';
+import 'package:academy/View/studentDashboard/Courses/video_screen2.dart';
 import 'package:academy/View/studentDashboard/Courses/video_screen_page.dart';
 import 'package:academy/ViewModel/controllers/getmycourses_controller.dart';
 import 'package:academy/data/Model/Courses/courses_videos.dart';
@@ -84,7 +85,7 @@ class _CoursesVideosPageState extends State<CoursesVideosPage> {
                                           .copyWith(left: 0.w, right: 0.w),
                                       child: InkWell(
                                         onTap: () {
-                                          Get.to(() => VideoScreen(
+                                          Get.to(() => NewVideoScreen(
                                                 videoName: albumModel.videoName
                                                     .toString(),
                                               ));
