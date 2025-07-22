@@ -79,14 +79,16 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
     });
 
     // Start periodic timer to track position
-    _positionTimer = Timer.periodic(Duration(seconds: 1), (_) async {
+    _positionTimer = Timer.periodic(Duration(milliseconds: 500), (_) async {
       final position = await _controller.currentTime;
       final duration = (await _controller.metadata).duration.inSeconds;
-
+if(mounted){
+  
       setState(() {
         _videoPositionInSeconds = position.toInt();
         _videoDurationInSeconds = duration;
       });
+}
     });
   }
 
