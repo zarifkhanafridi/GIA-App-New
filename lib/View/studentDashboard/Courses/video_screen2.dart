@@ -29,12 +29,7 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
   int _videoPositionInSeconds = 0;
   int _videoDurationInSeconds = 0;
   Timer? _positionTimer;
-  String _selectedQuality = 'hd720'; // Default to 720p
-  final Map<String, String> _qualityMap = {
-    '360p': 'medium',
-    '720p': 'hd720',
-    '1080p': 'hd1080',
-  };
+
 
   String _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
@@ -54,7 +49,7 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
         strictRelatedVideos: true,
         enableCaption: false,
         playsInline: false,
-        enableJavaScript: false,
+        enableJavaScript: true,
         loop: false,
         showControls: false,
         mute: false,
@@ -149,40 +144,6 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Quality Selection Dropdown
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    alignment: Alignment.centerRight,
-                    child: DropdownButton<String>(
-                      value: _qualityMap.entries
-                          .firstWhere((e) => e.value == _selectedQuality,
-                              orElse: () => MapEntry('720p', 'hd720'))
-                          .key,
-                      dropdownColor: Colors.black87,
-                      style: const TextStyle(color: Colors.white),
-                      items: _qualityMap.keys
-                          .map((label) => DropdownMenuItem<String>(
-                                value: label,
-                                child: Text(label,
-                                    style:
-                                        const TextStyle(color: Colors.white)),
-                              ))
-                          .toList(),
-                      onChanged: (String? newValue) {
-                        if (newValue != null) {
-                          setState(() {
-                            _selectedQuality = _qualityMap[newValue]!;
-                          });
-                          // Workaround: Use JavaScript to set playback quality
-                          _controller.webViewController.runJavaScript(
-                              'player.setPlaybackQuality("${_qualityMap[newValue]!}");');
-                        }
-                      },
-                      underline: Container(height: 1, color: Colors.white24),
-                      iconEnabledColor: Colors.white,
-                    ),
-                  ),
                   // Control Buttons Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
