@@ -46,10 +46,10 @@ dependencies:
   flutter_native_splash:
   sqflite: ^2.3.3+1
   #  screen_capture_restrictions: ^1.1.0
-  flutter_windowmanager: ^0.2.0
+  # flutter_windowmanager: ^0.2.0
   pinput: ^5.0.0
   # screen_capture_event: ^1.2.0
-  lecle_yoyo_player: ^0.0.8
+  # lecle_yoyo_player: ^0.0.8
   youtube_explode_dart: ^2.3.9
   chewie: ^1.7.0
   video_player: ^2.7.0

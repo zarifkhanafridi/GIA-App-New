@@ -29,6 +29,12 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
   int _videoPositionInSeconds = 0;
   int _videoDurationInSeconds = 0;
   Timer? _positionTimer;
+  String _selectedQuality = 'hd720'; // Default to 720p
+  final Map<String, String> _qualityMap = {
+    '360p': 'medium',
+    '720p': 'hd720',
+    '1080p': 'hd1080',
+  };
 
   String _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
@@ -82,13 +88,12 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
     _positionTimer = Timer.periodic(Duration(milliseconds: 500), (_) async {
       final position = await _controller.currentTime;
       final duration = (await _controller.metadata).duration.inSeconds;
-if(mounted){
-  
-      setState(() {
-        _videoPositionInSeconds = position.toInt();
-        _videoDurationInSeconds = duration;
-      });
-}
+      if (mounted) {
+        setState(() {
+          _videoPositionInSeconds = position.toInt();
+          _videoDurationInSeconds = duration;
+        });
+      }
     });
   }
 
@@ -101,162 +106,193 @@ if(mounted){
         return true; // Allow back navigation
       },
       child: Scaffold(
-        body: SafeArea(
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: IgnorePointer(
-                  ignoring: true,
-                  child: YoutubePlayerScaffold(
-                    controller: _controller,
-                    builder: (context, player) {
-                      return LayoutBuilder(
-                        builder: (context, constraints) {
-                          if (kIsWeb && constraints.maxWidth > 750) {
-                            return Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: Column(
-                                    children: [
-                                      player,
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            );
-                          }
-                          return ListView(
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: IgnorePointer(
+                ignoring: true,
+                child: YoutubePlayerScaffold(
+                  controller: _controller,
+                  builder: (context, player) {
+                    return LayoutBuilder(
+                      builder: (context, constraints) {
+                        if (kIsWeb && constraints.maxWidth > 750) {
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              player,
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Control Buttons Row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // IconButton(
-                        //   icon: Icon(Icons.skip_previous, color: Colors.white),
-                        //   onPressed: () => _controller.previousVideo(),
-                        // ),
-                        IconButton(
-                          icon: Icon(Icons.replay_10, color: Colors.white),
-                          onPressed: () {
-                            _controller.currentTime.then((currentTime) {
-                              _controller.seekTo(
-                                  seconds:
-                                      (currentTime - 10).clamp(0, currentTime),
-                                  allowSeekAhead: true);
-                            });
-                          },
-                        ),
-                        YoutubeValueBuilder(
-                          controller: _controller,
-                          builder: (context, value) {
-                            return IconButton(
-                              icon: Icon(
-                                value.playerState == PlayerState.playing
-                                    ? Icons.pause
-                                    : Icons.play_arrow,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                value.playerState == PlayerState.playing
-                                    ? _controller.pauseVideo()
-                                    : _controller.playVideo();
-                              },
-                            );
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.forward_10, color: Colors.white),
-                          onPressed: () {
-                            _controller
-                              ..currentTime.then((currentTime) {
-                                _controller.seekTo(
-                                    seconds: currentTime + 10,
-                                    allowSeekAhead: true);
-                              });
-                          },
-                        ),
-                        // IconButton(
-                        //   icon: Icon(Icons.skip_next, color: Colors.white),
-                        //   onPressed: () => _controller.nextVideo(),
-                        // ),
-                      ],
-                    ),
-
-                    // Video Progress Slider with time
-                    YoutubeValueBuilder(
-                      controller: _controller,
-                      builder: (context, value) {
-                        return Material(
-                          color: Colors.transparent,
-                          child: Column(
-                            children: [
-                              Slider(
-                                
-                                value: _videoPositionInSeconds
-                                    .clamp(0, _videoDurationInSeconds)
-                                    .toDouble(),
-                                min: 0.0,
-                                max: _videoDurationInSeconds > 0
-                                    ? _videoDurationInSeconds.toDouble()
-                                    : 1.0,
-                                activeColor: Color(0xFFFF0033),
-                                inactiveColor: Color(0xFF686E70),
-                                onChanged: (newValue) {
-                                  _controller.seekTo(
-                                      seconds: newValue, allowSeekAhead: true);
-                                  setState(() {
-                                    _videoPositionInSeconds = newValue.toInt();
-                                  });
-                                },
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                              Expanded(
+                                flex: 3,
+                                child: Column(
                                   children: [
-                                    Text(
-                                      _formatDuration(Duration(
-                                          seconds: _videoPositionInSeconds)),
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      _formatDuration(Duration(
-                                          seconds: _videoDurationInSeconds)),
-                                      style: TextStyle(color: Colors.white),
-                                    ),
+                                    player,
                                   ],
                                 ),
                               ),
                             ],
-                          ),
+                          );
+                        }
+                        return ListView(
+                          children: [
+                            player,
+                          ],
                         );
                       },
-                    ),
-                  ],
+                    );
+                  },
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Quality Selection Dropdown
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    alignment: Alignment.centerRight,
+                    child: DropdownButton<String>(
+                      value: _qualityMap.entries
+                          .firstWhere((e) => e.value == _selectedQuality,
+                              orElse: () => MapEntry('720p', 'hd720'))
+                          .key,
+                      dropdownColor: Colors.black87,
+                      style: const TextStyle(color: Colors.white),
+                      items: _qualityMap.keys
+                          .map((label) => DropdownMenuItem<String>(
+                                value: label,
+                                child: Text(label,
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                              ))
+                          .toList(),
+                      onChanged: (String? newValue) {
+                        if (newValue != null) {
+                          setState(() {
+                            _selectedQuality = _qualityMap[newValue]!;
+                          });
+                          // Workaround: Use JavaScript to set playback quality
+                          _controller.webViewController.runJavaScript(
+                              'player.setPlaybackQuality("${_qualityMap[newValue]!}");');
+                        }
+                      },
+                      underline: Container(height: 1, color: Colors.white24),
+                      iconEnabledColor: Colors.white,
+                    ),
+                  ),
+                  // Control Buttons Row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // IconButton(
+                      //   icon: Icon(Icons.skip_previous, color: Colors.white),
+                      //   onPressed: () => _controller.previousVideo(),
+                      // ),
+                      IconButton(
+                        icon: Icon(Icons.replay_10, color: Colors.white),
+                        onPressed: () {
+                          _controller.currentTime.then((currentTime) {
+                            _controller.seekTo(
+                                seconds:
+                                    (currentTime - 10).clamp(0, currentTime),
+                                allowSeekAhead: true);
+                          });
+                        },
+                      ),
+                      YoutubeValueBuilder(
+                        controller: _controller,
+                        builder: (context, value) {
+                          return IconButton(
+                            icon: Icon(
+                              value.playerState == PlayerState.playing
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              value.playerState == PlayerState.playing
+                                  ? _controller.pauseVideo()
+                                  : _controller.playVideo();
+                            },
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.forward_10, color: Colors.white),
+                        onPressed: () {
+                          _controller
+                            ..currentTime.then((currentTime) {
+                              _controller.seekTo(
+                                  seconds: currentTime + 10,
+                                  allowSeekAhead: true);
+                            });
+                        },
+                      ),
+                      // IconButton(
+                      //   icon: Icon(Icons.skip_next, color: Colors.white),
+                      //   onPressed: () => _controller.nextVideo(),
+                      // ),
+                    ],
+                  ),
+
+                  // Video Progress Slider with time
+                  YoutubeValueBuilder(
+                    controller: _controller,
+                    builder: (context, value) {
+                      return Material(
+                        color: Colors.transparent,
+                        child: Column(
+                          children: [
+                            Slider(
+                              value: _videoPositionInSeconds
+                                  .clamp(0, _videoDurationInSeconds)
+                                  .toDouble(),
+                              min: 0.0,
+                              max: _videoDurationInSeconds > 0
+                                  ? _videoDurationInSeconds.toDouble()
+                                  : 1.0,
+                              activeColor: Color(0xFFFF0033),
+                              inactiveColor: Color(0xFF686E70),
+                              onChanged: (newValue) {
+                                _controller.seekTo(
+                                    seconds: newValue, allowSeekAhead: true);
+                                setState(() {
+                                  _videoPositionInSeconds = newValue.toInt();
+                                });
+                              },
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    _formatDuration(Duration(
+                                        seconds: _videoPositionInSeconds)),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Text(
+                                    _formatDuration(Duration(
+                                        seconds: _videoDurationInSeconds)),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
