@@ -13,6 +13,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        // Enable core library desugaring to support newer Java APIs on older Android devices
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -32,13 +34,34 @@ android {
 
     buildTypes {
         release {
+            // Optimize and shrink with R8, using our ProGuard rules to keep NewPipe/Rhino
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Core library desugaring: backports newer Java APIs (e.g., java.net, java.time) to Android
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.4"
+    implementation "com.google.android.exoplayer:exoplayer:2.19.1"
+    implementation "com.google.android.exoplayer:extension-mediasession:2.19.1"
+
+    implementation 'com.github.TeamNewPipe:NewPipeExtractor:master-SNAPSHOT'
+
+    implementation "com.squareup.okhttp3:okhttp:4.12.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
 }

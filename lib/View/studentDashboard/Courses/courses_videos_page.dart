@@ -3,8 +3,9 @@
 import 'dart:developer';
 
 import 'package:academy/View/commonPage/background.dart';
+import 'package:academy/View/studentDashboard/Courses/native_video_screen.dart';
+import 'package:academy/View/studentDashboard/Courses/videoScreen3.dart';
 import 'package:academy/View/studentDashboard/Courses/video_screen2.dart';
-import 'package:academy/View/studentDashboard/Courses/video_screen_page.dart';
 import 'package:academy/ViewModel/controllers/getmycourses_controller.dart';
 import 'package:academy/data/Model/Courses/courses_videos.dart';
 import 'package:academy/data/status.dart';
@@ -85,8 +86,14 @@ class _CoursesVideosPageState extends State<CoursesVideosPage> {
                                           .copyWith(left: 0.w, right: 0.w),
                                       child: InkWell(
                                         onTap: () {
-                                          Get.to(() => NewVideoScreen(
-                                                videoName: albumModel.videoName
+                                          // flutter
+                                          // Get.to(() => NewVideoScreen2(
+                                          //       videoName: albumModel.videoName
+                                          //           .toString(),
+                                          //     ));                                        
+                                          //android native
+                                          Get.to(() => NativeVideoScreen(
+                                                videoId: albumModel.videoName
                                                     .toString(),
                                               ));
                                         },

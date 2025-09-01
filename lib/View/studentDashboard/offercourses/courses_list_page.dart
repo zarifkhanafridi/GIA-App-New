@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:academy/View/commonPage/background.dart';
+import 'package:academy/View/studentDashboard/Courses/native_video_screen.dart';
 import 'package:academy/View/studentDashboard/Courses/video_screen2.dart';
 import 'package:academy/View/studentDashboard/Courses/video_screen_page.dart';
 import 'package:academy/View/studentDashboard/Cart/cart_view.dart';
@@ -319,8 +320,8 @@ class _OfferCoursesListPageState extends State<OfferCoursesListPage> {
                                                                             Colors.black);
                                                                   } else {
                                                                     Get.to(() =>
-                                                                        NewVideoScreen(
-                                                                          videoName: courseDetail
+                                                                        NativeVideoScreen(
+                                                                          videoId: courseDetail
                                                                               .courseOverviewUrl
                                                                               .toString(),
                                                                         ));
