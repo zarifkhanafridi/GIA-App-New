@@ -163,7 +163,6 @@ class _ForgetPageState extends State<ForgetPage> {
                         ),
                       )),
                   SizedBox(height: 66.h),
-
                 ],
               ),
             ),

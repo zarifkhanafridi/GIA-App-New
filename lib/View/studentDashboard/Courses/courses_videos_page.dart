@@ -6,6 +6,8 @@ import 'package:academy/View/commonPage/background.dart';
 import 'package:academy/View/studentDashboard/Courses/native_video_screen.dart';
 import 'package:academy/View/studentDashboard/Courses/videoScreen3.dart';
 import 'package:academy/View/studentDashboard/Courses/video_screen2.dart';
+import 'package:academy/View/studentDashboard/Courses/video_router.dart';
+import 'package:academy/util/video_navigation_helper.dart';
 import 'package:academy/ViewModel/controllers/getmycourses_controller.dart';
 import 'package:academy/data/Model/Courses/courses_videos.dart';
 import 'package:academy/data/status.dart';
@@ -87,15 +89,10 @@ class _CoursesVideosPageState extends State<CoursesVideosPage> {
                                       child: InkWell(
                                         onTap: () {
                                           // flutter
-                                          // Get.to(() => NewVideoScreen2(
-                                          //       videoName: albumModel.videoName
-                                          //           .toString(),
-                                          //     ));                                        
-                                          //android native
-                                          Get.to(() => NativeVideoScreen(
-                                                videoId: albumModel.videoName
-                                                    .toString(),
-                                              ));
+                                          // Use VideoNavigationHelper for automatic player selection
+                                          VideoNavigationHelper.playCourseVideo(
+                                            albumModel.videoName,
+                                          );
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(

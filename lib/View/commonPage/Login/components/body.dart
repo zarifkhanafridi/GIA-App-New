@@ -210,7 +210,6 @@ class _MyCustomFormState extends State<Body> {
                             onTap: authController.isLoading.value
                                 ? () {
                                     log('message');
-
                                   }
                                 : () async {
                                     await authController.loginMethod(

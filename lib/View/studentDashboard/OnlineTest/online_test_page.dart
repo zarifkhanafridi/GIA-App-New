@@ -239,10 +239,10 @@ class _OnlineTestPageState extends State<OnlineTestPage> {
                                                                           .toString(),
                                                                   style: CustomStyle.textSemiBold15.copyWith(
                                                                       fontSize:
-                                                                      12.sp,
+                                                                          12.sp,
                                                                       fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
+                                                                          FontWeight
+                                                                              .w500,
                                                                       color: AppColors
                                                                           .kRed),
                                                                 )

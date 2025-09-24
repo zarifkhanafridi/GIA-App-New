@@ -210,7 +210,6 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 }
 
-
 // class Controls extends StatelessWidget {
 //   ///
 //   const Controls({super.key});
@@ -421,7 +420,6 @@ class _VideoScreenState extends State<VideoScreen> {
 //   }
 // }
 
-
 //
 // class VideoPlaylistIconButton extends StatelessWidget {
 //   ///
@@ -517,11 +515,6 @@ class _VideoScreenState extends State<VideoScreen> {
 //     );
 //   }
 // }
-
-
-
-
-
 
 // class MetaDataSection extends StatelessWidget {
 //   const MetaDataSection({super.key});

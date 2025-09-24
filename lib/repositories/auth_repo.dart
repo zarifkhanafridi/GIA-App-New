@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:academy/data/network/network_api_services.dart';
 import 'package:academy/res/app_urls.dart';
 
- 
 class AuthRepository {
   final _apiService = NetworkApiServices();
   Future<dynamic> signInMethod({required var data}) async {
@@ -53,7 +52,8 @@ class AuthRepository {
       log('error: authRepo side :' + e.toString());
     }
   }
-   Future<dynamic> resetPasswordMethod({required var data}) async {
+
+  Future<dynamic> resetPasswordMethod({required var data}) async {
     try {
       String url = resetPasswordApi;
       log(resetPasswordApi);
@@ -64,8 +64,8 @@ class AuthRepository {
       log('error: authRepo side :' + e.toString());
     }
   }
-  
-   Future<dynamic> updatePasswordMethod({required var data}) async {
+
+  Future<dynamic> updatePasswordMethod({required var data}) async {
     try {
       String url = ProfileUpdatePasswordApi;
       log(ProfileUpdatePasswordApi);
@@ -76,12 +76,13 @@ class AuthRepository {
       log('error: authRepo side :' + e.toString());
     }
   }
-  Future<dynamic> logout( ) async {
+
+  Future<dynamic> logout() async {
     try {
       String url = logoutApi;
       log(logoutApi);
-      dynamic response = await _apiService.postApi(
-          url: url, isHeaderRequired: true);
+      dynamic response =
+          await _apiService.postApi(url: url, isHeaderRequired: true);
       return response;
     } catch (e) {
       log('error: authRepo side :' + e.toString());

@@ -13,7 +13,6 @@ import 'package:academy/theme/colors/light_colors.dart';
 import 'package:academy/util/utils.dart';
 import 'package:get/get.dart';
 
-
 class TestController extends GetxController {
   TestRepository testRepo = TestRepository();
   final Rx<List<GetAllTestList>> _getCoursesTestList =

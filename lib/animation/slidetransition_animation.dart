@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class SlideTransitionAnimation extends StatefulWidget {
   final Widget child;
-  final Offset begin,  end;
+  final Offset begin, end;
 
-  const SlideTransitionAnimation({super.key, required this.child,required this.begin,required this.end});
+  const SlideTransitionAnimation(
+      {super.key, required this.child, required this.begin, required this.end});
 
   @override
-  State<SlideTransitionAnimation> createState() => _SlideTransitionAnimationState();
+  State<SlideTransitionAnimation> createState() =>
+      _SlideTransitionAnimationState();
 }
 
-class _SlideTransitionAnimationState extends State<SlideTransitionAnimation>with TickerProviderStateMixin  {
-
-
+class _SlideTransitionAnimationState extends State<SlideTransitionAnimation>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _slideAnimation;
 
@@ -45,6 +46,9 @@ class _SlideTransitionAnimationState extends State<SlideTransitionAnimation>with
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(position: _slideAnimation,child: widget.child,);
+    return SlideTransition(
+      position: _slideAnimation,
+      child: widget.child,
+    );
   }
 }

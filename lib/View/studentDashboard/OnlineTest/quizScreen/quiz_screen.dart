@@ -47,7 +47,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int timerDuration = 0;
   int currentIndex = 0;
   bool isLastQuestion = false;
-  bool isLastQuestionPressed=false; 
+  bool isLastQuestionPressed = false;
   Timer? timer;
   @override
   void initState() {
@@ -108,8 +108,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle, color: AppColors.kLandingBgColor),
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+                  padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
                   child: Icon(Icons.arrow_back,
                       color: AppColors.kGrayscaleDark100),
                 ),
@@ -127,8 +126,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   color: AppColors.kDarkBlue,
                 ),
               )
-            : testQuestionC.appStatusQuestionModel.value ==
-                    AppStatus.COMPLETED
+            : testQuestionC.appStatusQuestionModel.value == AppStatus.COMPLETED
                 ? Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 8.w,
@@ -150,18 +148,18 @@ class _QuizScreenState extends State<QuizScreen> {
                               testM = testQuestionC.questionModelList[index];
                               questionN =
                                   int.parse(testM!.questionNo.toString());
-    
+
                               log(' NAME: ${testM!.questionName.toString()}');
                               log(testM!.opt1.toString());
                               String testTile =
                                   ' <figure class="image"><img src="https://gislamian.pk/test/1707853626.PNG"></figure>' +
                                       "text tile and image both in one link";
                               return SingleChildScrollView(
-                                padding:
-                                    EdgeInsets.only(bottom: 34.h,  ),
+                                padding: EdgeInsets.only(
+                                  bottom: 34.h,
+                                ),
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
                                       height: 23.h,
@@ -178,8 +176,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                           style: CustomStyle.textRegular15
                                               .copyWith(
                                                   color: AppColors.kDarkBlue,
-                                                  fontWeight:
-                                                      FontWeight.w500),
+                                                  fontWeight: FontWeight.w500),
                                         ),
                                       ],
                                     ),
@@ -195,20 +192,17 @@ class _QuizScreenState extends State<QuizScreen> {
                                           Text(
                                               'Question no  ' +
                                                   questionN.toString(),
-                                              style: CustomStyle
-                                                  .textSemiBold20
+                                              style: CustomStyle.textSemiBold20
                                                   .copyWith(
-                                                      color: AppColors
-                                                          .kDarkBlue)),
+                                                      color:
+                                                          AppColors.kDarkBlue)),
                                         ],
                                       ),
                                     ),
                                     SizedBox(
                                       height: 23.h,
                                     ),
-                                    
-                                    Html(
-                                        data: testM!.questionName.toString()),
+                                    Html(data: testM!.questionName.toString()),
                                     SizedBox(
                                       height: 22.h,
                                     ),
@@ -238,7 +232,6 @@ class _QuizScreenState extends State<QuizScreen> {
                                             setState(() {
                                               selectedOptions[index] = 1;
                                             });
-                                            
                                           },
                                           child: Container(
                                             width: double.infinity,
@@ -246,10 +239,8 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 horizontal: 23.w,
                                                 vertical: 8.h),
                                             decoration: BoxDecoration(
-                                               
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        6.r),
+                                                    BorderRadius.circular(6.r),
                                                 border: Border.all(
                                                     color: selectedOptions[
                                                                 index] ==
@@ -271,8 +262,6 @@ class _QuizScreenState extends State<QuizScreen> {
                                                   width: 12.w,
                                                 ),
                                                 Flexible(
-                                                  
-                                                 
                                                   child: Html(
                                                       data: testM!.opt1
                                                           .toString()),
@@ -287,7 +276,6 @@ class _QuizScreenState extends State<QuizScreen> {
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           onTap: () {
-                                            
                                             currentData = {
                                               "q_id": testM!.id.toString(),
                                               "given_answer": "opt_2",
@@ -329,7 +317,6 @@ class _QuizScreenState extends State<QuizScreen> {
                                                     width: 12.w,
                                                   ),
                                                   Flexible(
-                                                    
                                                     child: Html(
                                                         data: testM!.opt2
                                                             .toString()),
@@ -343,7 +330,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           onTap: () {
-                                             currentData = {
+                                            currentData = {
                                               "q_id": testM!.id.toString(),
                                               "given_answer": "opt_3",
                                               "corrected_answer": testM!
@@ -384,7 +371,6 @@ class _QuizScreenState extends State<QuizScreen> {
                                                     width: 12.w,
                                                   ),
                                                   Flexible(
-                                                     
                                                     child: Html(
                                                         data: testM!.opt3
                                                             .toString()),
@@ -407,7 +393,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                                   .correctAnswer
                                                   .toString(),
                                             };
-                                            
+
                                             setState(() {
                                               selectedOptions[index] = 4;
                                             });
@@ -442,7 +428,6 @@ class _QuizScreenState extends State<QuizScreen> {
                                                     width: 12.w,
                                                   ),
                                                   Flexible(
-                                                     
                                                     child: Html(
                                                         data: testM!.opt4
                                                             .toString()),
@@ -464,37 +449,38 @@ class _QuizScreenState extends State<QuizScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                               Flexible(
-        child: PrimaryButton(
-          width: 60.w,
-          height: 45.h,
-          onTap: () {
-            if (currentIndex > 0) {
-              // If currentIndex is greater than 0, move back one page
-              pageController.previousPage(
-                duration: const Duration(milliseconds: 100),
-                curve: Curves.easeOut,
-              );
-              // Update the currentIndex
-              setState(() {
-                currentIndex--;
-              });
-            } else {
-              // If currentIndex is already 0, handle as needed (e.g., navigate back)
-              // Get.back();
-            }
-          },
-          childWidget: Text(
-            'Back',
-            style: CustomStyle.textMedium14.copyWith(
-              color: AppColors.whiteColor,
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          bgColor: AppColors.kDarkBlue,
-        ),
-      ),
+                              Flexible(
+                                child: PrimaryButton(
+                                  width: 60.w,
+                                  height: 45.h,
+                                  onTap: () {
+                                    if (currentIndex > 0) {
+                                      // If currentIndex is greater than 0, move back one page
+                                      pageController.previousPage(
+                                        duration:
+                                            const Duration(milliseconds: 100),
+                                        curve: Curves.easeOut,
+                                      );
+                                      // Update the currentIndex
+                                      setState(() {
+                                        currentIndex--;
+                                      });
+                                    } else {
+                                      // If currentIndex is already 0, handle as needed (e.g., navigate back)
+                                      // Get.back();
+                                    }
+                                  },
+                                  childWidget: Text(
+                                    'Back',
+                                    style: CustomStyle.textMedium14.copyWith(
+                                      color: AppColors.whiteColor,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  bgColor: AppColors.kDarkBlue,
+                                ),
+                              ),
                               SizedBox(
                                 width: 30.w,
                               ),
@@ -504,57 +490,55 @@ class _QuizScreenState extends State<QuizScreen> {
                                         height: 45.h,
                                         onTap: isLastQuestion
                                             ? () async {
-                                              if(isLastQuestionPressed)
-                                              {
-                                                fluttersToast(msg: 'answers is posting please wait..', bgColor: Colors.white, textColor: Colors.black12);
-                                              }else{
-                                                 await testQuestionC
-                                                    .postAllAnswersApi(
-                                                        data: answersList,
-                                                        testId: widget.id)
-                                                    .then((value) async {
-                                                  answersList.clear();
+                                                if (isLastQuestionPressed) {
+                                                  fluttersToast(
+                                                      msg:
+                                                          'answers is posting please wait..',
+                                                      bgColor: Colors.white,
+                                                      textColor:
+                                                          Colors.black12);
+                                                } else {
+                                                  await testQuestionC
+                                                      .postAllAnswersApi(
+                                                          data: answersList,
+                                                          testId: widget.id)
+                                                      .then((value) async {
+                                                    answersList.clear();
+                                                  });
+                                                }
+                                                setState(() {
+                                                  isLastQuestionPressed = true;
                                                 });
-                                              }
-                                              setState(() {
-                                                isLastQuestionPressed=true;
-                                              });
-                                               
                                               }
                                             : () async {
                                                 if (currentData.isEmpty) {
                                                   Fluttertoast.showToast(
-                                                      msg:
-                                                          'Select any option');
+                                                      msg: 'Select any option');
                                                 } else {
-                                                  answersList
-                                                      .add(currentData);
+                                                  answersList.add(currentData);
                                                   log(answersList.length
                                                       .toString());
-    
+
                                                   if (currentIndex ==
                                                       testQuestionC
                                                               .questionModelList
                                                               .length -
                                                           1) {
                                                     // Perform the action for the last question
-    
+
                                                     // Disable the "Next" button
                                                     setState(() {
                                                       isLastQuestion = true;
-                                                      
                                                     });
                                                   } else {
                                                     // currentData.clear();
                                                     // Move to the next page
                                                     pageController.nextPage(
-                                                      duration:
-                                                          const Duration(
-                                                              milliseconds:
-                                                                  100),
+                                                      duration: const Duration(
+                                                          milliseconds: 100),
                                                       curve: Curves.easeIn,
                                                     );
-    
+
                                                     // Update the currentIndex
                                                     setState(() {
                                                       currentIndex++;
@@ -585,9 +569,10 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 ),
                                               )
                                             : Text(
-                                               isLastQuestion? 'Finished': 'Next',
-                                                style: CustomStyle
-                                                    .textMedium14
+                                                isLastQuestion
+                                                    ? 'Finished'
+                                                    : 'Next',
+                                                style: CustomStyle.textMedium14
                                                     .copyWith(
                                                   color: AppColors.whiteColor,
                                                   fontSize: 12.sp,
@@ -596,8 +581,6 @@ class _QuizScreenState extends State<QuizScreen> {
                                               ),
                                         bgColor: AppColors.kDarkBlue),
                                   )),
-                              
-                              
                             ],
                           ),
                         ),

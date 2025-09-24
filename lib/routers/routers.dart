@@ -48,17 +48,15 @@ class AppRoutes {
           name: RouteName.forgetPage,
           page: () => ForgetPage(),
         ),
-    GetPage(
-      name: RouteName.resetPassword,
-      page: () {
-        // You can pass the code dynamically when navigating
-        final code = Get.parameters['code']!;
-        return ResetPassword(code: verifyCode(code: code));
-      },
-    ),
-
-
-    GetPage(
+        GetPage(
+          name: RouteName.resetPassword,
+          page: () {
+            // You can pass the code dynamically when navigating
+            final code = Get.parameters['code']!;
+            return ResetPassword(code: verifyCode(code: code));
+          },
+        ),
+        GetPage(
           name: RouteName.coursesPage,
           page: () => CoursesPage(),
         ),

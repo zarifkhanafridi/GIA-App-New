@@ -4,6 +4,8 @@ import 'package:academy/View/commonPage/background.dart';
 import 'package:academy/View/studentDashboard/Courses/native_video_screen.dart';
 import 'package:academy/View/studentDashboard/Courses/video_screen2.dart';
 import 'package:academy/View/studentDashboard/Courses/video_screen_page.dart';
+import 'package:academy/View/studentDashboard/Courses/video_router.dart';
+import 'package:academy/util/video_navigation_helper.dart';
 import 'package:academy/View/studentDashboard/Cart/cart_view.dart';
 import 'package:academy/ViewModel/controllers/offercourse_controller.dart';
 import 'package:academy/data/Model/offerCourses/offer_courses_list_model.dart';
@@ -319,12 +321,12 @@ class _OfferCoursesListPageState extends State<OfferCoursesListPage> {
                                                                         textColor:
                                                                             Colors.black);
                                                                   } else {
-                                                                    Get.to(() =>
-                                                                        NativeVideoScreen(
-                                                                          videoId: courseDetail
-                                                                              .courseOverviewUrl
-                                                                              .toString(),
-                                                                        ));
+                                                                    // Use VideoNavigationHelper for automatic player selection
+                                                                    VideoNavigationHelper
+                                                                        .playCourseOverview(
+                                                                      courseDetail
+                                                                          .courseOverviewUrl,
+                                                                    );
                                                                   }
                                                                 },
                                                                 title:

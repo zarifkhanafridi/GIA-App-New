@@ -1,4 +1,3 @@
- 
 class FeedBackCoursesModel {
   bool? success;
   String? message;

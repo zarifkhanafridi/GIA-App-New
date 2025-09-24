@@ -53,9 +53,11 @@ class GetMyCoursesRepository {
     } catch (e) {
       log('error:  getMyCourses side :' + e.toString());
     }
-  }Future<dynamic> getFeedbackMethod({required String id}) async {
+  }
+
+  Future<dynamic> getFeedbackMethod({required String id}) async {
     try {
-      String url = getFeedBackApi+"?course_id=$id";
+      String url = getFeedBackApi + "?course_id=$id";
       log(url);
       dynamic response =
           await _apiService.getApi(url: url, isHeaderRequired: true);
@@ -64,7 +66,8 @@ class GetMyCoursesRepository {
       log('error:  getMyCourses side :' + e.toString());
     }
   }
-   Future<dynamic> postFeedbackMethod({required var data}) async {
+
+  Future<dynamic> postFeedbackMethod({required var data}) async {
     try {
       String url = getFeedBackPostApi;
       log(url);

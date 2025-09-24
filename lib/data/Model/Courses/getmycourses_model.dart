@@ -1,4 +1,3 @@
- 
 class GetMyCoursesModel {
   bool? success;
   String? message;
@@ -38,7 +37,7 @@ class GetMyCoursesList {
   dynamic description;
   String? isActive;
   String? totalSeat;
-   dynamic expireOn;
+  dynamic expireOn;
   String? groupType;
   String? groupName;
   String? masterCategoryId;

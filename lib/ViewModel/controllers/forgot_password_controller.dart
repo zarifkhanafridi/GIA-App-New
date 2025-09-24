@@ -36,7 +36,8 @@ class ForgotPasswordController extends GetxController {
             textColor: AppColors.whiteColor);
       }
     } catch (error) {
-      errorMessage.value = "Failed to send reset email."; // Generic error message
+      errorMessage.value =
+          "Failed to send reset email."; // Generic error message
       fluttersToast(
           msg: errorMessage.value,
           bgColor: AppColors.kRed,
@@ -57,10 +58,11 @@ class ForgotPasswordController extends GetxController {
       if (response['success'] == true) {
         successMessage.value = response['message'];
         fluttersToast(
-            msg:"Otp is successfully submitted",
+            msg: "Otp is successfully submitted",
             bgColor: AppColors.primaryColor,
             textColor: AppColors.darkGreyColor);
-        Get.to(() => ResetPassword(code: verifyCode(code: code))); // Navigate to ResetPassword screen
+        Get.to(() => ResetPassword(
+            code: verifyCode(code: code))); // Navigate to ResetPassword screen
       } else {
         errorMessage.value = response['message'];
         fluttersToast(
@@ -69,7 +71,8 @@ class ForgotPasswordController extends GetxController {
             textColor: AppColors.whiteColor);
       }
     } catch (error) {
-      errorMessage.value = "Failed to verify reset code."; // Generic error message
+      errorMessage.value =
+          "Failed to verify reset code."; // Generic error message
       fluttersToast(
           msg: errorMessage.value,
           bgColor: AppColors.kRed,
@@ -78,7 +81,8 @@ class ForgotPasswordController extends GetxController {
       isLoading.value = false; // Stop loading
     }
   }
-/// obsecure icon in reset password screen
+
+  /// obsecure icon in reset password screen
   var isPasswordVisible = false.obs;
   var isConfirmPasswordVisible = false.obs;
 
@@ -90,15 +94,16 @@ class ForgotPasswordController extends GetxController {
     isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
   }
 
-
   // Method to reset the password
-  Future<void> resetPassword(String password, String newPassword, String code) async {
+  Future<void> resetPassword(
+      String password, String newPassword, String code) async {
     try {
       isLoading.value = true; // Start loading
       errorMessage.value = ''; // Reset previous errors
       successMessage.value = ''; // Reset previous success message
 
-      final response = await _repository.resetPassword(password, newPassword, code);
+      final response =
+          await _repository.resetPassword(password, newPassword, code);
       if (response['success'] == true) {
         successMessage.value = response['message'].isEmpty
             ? 'Password has been successfully reset.' // Fallback message
@@ -107,9 +112,11 @@ class ForgotPasswordController extends GetxController {
             msg: successMessage.value,
             bgColor: AppColors.primaryColor,
             textColor: AppColors.darkGreyColor);
-        Get.to(() => LoginPage()); // Navigate to LoginPage after successful password reset
+        Get.to(() =>
+            LoginPage()); // Navigate to LoginPage after successful password reset
       } else {
-        errorMessage.value = response['message'] ?? 'An error occurred'; // Handle API error message
+        errorMessage.value = response['message'] ??
+            'An error occurred'; // Handle API error message
         fluttersToast(
             msg: errorMessage.value,
             bgColor: AppColors.kRed,

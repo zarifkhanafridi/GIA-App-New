@@ -1,11 +1,9 @@
- 
 import 'package:academy/res/typography.dart';
 import 'package:academy/theme/colors/light_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
- 
 class PrimaryTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;

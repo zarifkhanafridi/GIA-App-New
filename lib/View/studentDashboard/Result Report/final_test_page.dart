@@ -40,12 +40,10 @@ class _FinalTestReportPageState extends State<FinalTestReportPage> {
     final Size size = MediaQuery.of(context).size;
 
     return WillPopScope(
-      onWillPop: ()async{
-        if(isQuizSide)
-        {
+      onWillPop: () async {
+        if (isQuizSide) {
           Get.close(2);
-
-        }else{
+        } else {
           Get.back();
         }
         return false;
@@ -84,7 +82,8 @@ class _FinalTestReportPageState extends State<FinalTestReportPage> {
                     color: AppColors.kDarkBlue,
                   ),
                 )
-              : resultC.appStatusFinalTestDetailModel.value == AppStatus.COMPLETED
+              : resultC.appStatusFinalTestDetailModel.value ==
+                      AppStatus.COMPLETED
                   ? resultC.finalTestDetailModel == null
                       ? Center(
                           child: Text('No Result List added'),
@@ -100,9 +99,11 @@ class _FinalTestReportPageState extends State<FinalTestReportPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      resultC.finalTestDetailModel!.testDetails ==
+                                      resultC.finalTestDetailModel!
+                                                  .testDetails ==
                                               null
                                           ? Center(
                                               child:
@@ -135,7 +136,8 @@ class _FinalTestReportPageState extends State<FinalTestReportPage> {
                                   padding: const EdgeInsets.all(8.0)
                                       .copyWith(top: 12.h),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -174,14 +176,13 @@ class _FinalTestReportPageState extends State<FinalTestReportPage> {
                                                             .resultSummerySubjectWise![
                                                         index];
                                                     return Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                                  8.0)
-                                                              .copyWith(right: 0),
+                                                      padding: const EdgeInsets
+                                                              .all(8.0)
+                                                          .copyWith(right: 0),
                                                       child: Container(
                                                         width: 89.w,
-                                                        padding:
-                                                            EdgeInsets.all(10.r),
+                                                        padding: EdgeInsets.all(
+                                                            10.r),
                                                         color:
                                                             AppColors.kDarkBlue,
                                                         child: Column(
@@ -306,7 +307,8 @@ class _FinalTestReportPageState extends State<FinalTestReportPage> {
                                               ),
                                               onPressed: () {
                                                 Get.toNamed(
-                                                    RouteName.finalTestDetailPage,
+                                                    RouteName
+                                                        .finalTestDetailPage,
                                                     arguments: [testId, false]);
                                               },
                                               child: Text('View Answers'))

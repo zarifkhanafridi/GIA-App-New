@@ -45,34 +45,24 @@ class GetMyCoursesController extends GetxController {
   void setVideosList(List<CoursesVideoList> _value) =>
       _getCoursesVideoList.value = _value;
 
-///------------------------------------------------------------------------
- 
- 
-  final Rx<List<FeedBackList>?> _getFeedBackList =
-      Rx<List<FeedBackList>?>([]);
-   List<FeedBackList>? get getFeedBackModel => _getFeedBackList.value;
+  ///------------------------------------------------------------------------
+
+  final Rx<List<FeedBackList>?> _getFeedBackList = Rx<List<FeedBackList>?>([]);
+  List<FeedBackList>? get getFeedBackModel => _getFeedBackList.value;
   RxString errorFeedBackText = ''.obs;
   Rx<AppStatus> appStatusFeedBack = AppStatus.LOADING.obs;
   void setGetFeedBackListAppStatus(AppStatus _value) =>
       appStatusFeedBack.value = _value;
   void setErrorGetFeedBackList(String _errorValue) =>
       errorFeedBackText.value = _errorValue;
-  void setFeedBackList( List<FeedBackList>  _value) =>
-      
+  void setFeedBackList(List<FeedBackList> _value) =>
       _getFeedBackList.value = _value;
 
- ///------------------------------------------------------------------------
- RxBool isFeedBackLoading=false.obs;
- RxString isFeedBackError=''.obs;
- 
- 
- 
- 
- 
- 
- 
- 
- //----------------------------------------------------------------------
+  ///------------------------------------------------------------------------
+  RxBool isFeedBackLoading = false.obs;
+  RxString isFeedBackError = ''.obs;
+
+  //----------------------------------------------------------------------
   Future<void> getAllMyCoursesList() async {
     try {
       setGetMyCoursesAppStatus(AppStatus.LOADING);
@@ -105,7 +95,7 @@ class GetMyCoursesController extends GetxController {
     try {
       var data = {"course_id": course_id};
       setAlbumAppStatus(AppStatus.LOADING);
-       print("there");
+      print("there");
       await getMyCoursesRepo.getCourseAlbumsMethod(data: data).then((value) {
         if (value['success'].toString() == 'true') {
           CourseAlbumsModel res = CourseAlbumsModel.fromJson(value);
@@ -160,7 +150,8 @@ class GetMyCoursesController extends GetxController {
       log('get My courses controller side error' + e.toString());
     }
   }
- Future<void> getStudentFeedBackApi({required String courseId}) async {
+
+  Future<void> getStudentFeedBackApi({required String courseId}) async {
     try {
       setGetFeedBackListAppStatus(AppStatus.LOADING);
 
@@ -183,32 +174,38 @@ class GetMyCoursesController extends GetxController {
         setErrorGetFeedBackList(error.toString());
         setGetFeedBackListAppStatus(AppStatus.ERROR);
       });
-    } catch (e) {setGetFeedBackListAppStatus(AppStatus.ERROR);
+    } catch (e) {
+      setGetFeedBackListAppStatus(AppStatus.ERROR);
       log('get My courses controller side error' + e.toString());
     }
   }
-Future<void> postFeedBackApi({required String course_id, required String rating, required String comments}) async {
+
+  Future<void> postFeedBackApi(
+      {required String course_id,
+      required String rating,
+      required String comments}) async {
     try {
-     isFeedBackLoading.value=true;
-      var data = {'course_id': course_id,'rating':rating,'comments':comments};
+      isFeedBackLoading.value = true;
+      var data = {
+        'course_id': course_id,
+        'rating': rating,
+        'comments': comments
+      };
       await getMyCoursesRepo.postFeedbackMethod(data: data).then((value) {
-        
-         isFeedBackLoading.value=false;
-         fluttersToast(
+        isFeedBackLoading.value = false;
+        fluttersToast(
             msg: value['message'].toString(),
             bgColor: AppColors.primaryColor,
             textColor: AppColors.darkGreyColor);
-    Get.close(1);
-       
+        Get.close(1);
       }).onError((error, stackTrace) {
-        isFeedBackLoading.value=false;
-        isFeedBackError.value=error.toString();
+        isFeedBackLoading.value = false;
+        isFeedBackError.value = error.toString();
       });
-    } catch (e) {isFeedBackError.value=e.toString();
-     isFeedBackLoading.value=false;
+    } catch (e) {
+      isFeedBackError.value = e.toString();
+      isFeedBackLoading.value = false;
       log(' get My courses controller  side error' + e.toString());
     }
   }
-  
-
 }

@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 
 class ScalesTransitionAnimation extends StatefulWidget {
   final Widget child;
- 
 
-  const ScalesTransitionAnimation(
-      {super.key, required this.child,  });
+  const ScalesTransitionAnimation({
+    super.key,
+    required this.child,
+  });
 
   @override
   State<ScalesTransitionAnimation> createState() =>
@@ -31,7 +32,6 @@ class _ScalesTransitionAnimationState extends State<ScalesTransitionAnimation>
           (value) => _animationController.forward(),
         );
     // Start the animation
-    
   }
 
   @override

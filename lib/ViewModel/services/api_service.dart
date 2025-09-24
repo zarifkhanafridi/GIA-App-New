@@ -31,7 +31,8 @@ class ApiService {
   static Future<Map<String, dynamic>> resetPassword(String password) async {
     try {
       final response = await http.post(
-        Uri.parse('https://your-api-endpoint.com/reset-password'), // Replace with your actual API URL
+        Uri.parse(
+            'https://your-api-endpoint.com/reset-password'), // Replace with your actual API URL
         headers: {
           'Content-Type': 'application/json', // Set content-type as JSON
         },
@@ -43,7 +44,7 @@ class ApiService {
 
       if (response.statusCode == 200) {
         // If server responds with success (200)
-        return json.decode(response.body);  // Parse and return the JSON response
+        return json.decode(response.body); // Parse and return the JSON response
       } else {
         // If server responds with any other status code
         throw Exception('Failed to reset password: ${response.body}');

@@ -5,7 +5,8 @@ class ForgotPasswordRepository {
 
   // API endpoints
   final String _sendEmailUrl = "https://gislamian.pk/api/v1/password/email";
-  final String _verifyCodeUrl = "https://gislamian.pk/api/v1/password/code/check";
+  final String _verifyCodeUrl =
+      "https://gislamian.pk/api/v1/password/code/check";
   final String _resetPasswordUrl = "https://gislamian.pk/api/v1/password/reset";
 
   /// Method to send email to receive reset code
@@ -43,7 +44,8 @@ class ForgotPasswordRepository {
   }
 
   /// Method to reset the password
-  Future<dynamic> resetPassword(String password,  String newPassword,String code) async {
+  Future<dynamic> resetPassword(
+      String password, String newPassword, String code) async {
     try {
       final data = {
         "password": password,
@@ -61,5 +63,3 @@ class ForgotPasswordRepository {
     }
   }
 }
-
-

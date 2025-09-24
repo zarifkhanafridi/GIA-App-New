@@ -132,20 +132,17 @@ class _CoursesAlbumsPageState extends State<CoursesAlbumsPage> {
                                                                       .whiteColor),
                                                         ),
                                                         Text(
-                                                          albumModel
-                                                              .albumTitle
+                                                          albumModel.albumTitle
                                                               .toString(),
-                                                          overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                           maxLines: 2,
                                                           style: CustomStyle
                                                               .textSemiBold15
                                                               .copyWith(
                                                             fontSize: 10.sp,
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .w600,
+                                                                FontWeight.w600,
                                                             color: AppColors
                                                                 .whiteColor,
                                                           ),

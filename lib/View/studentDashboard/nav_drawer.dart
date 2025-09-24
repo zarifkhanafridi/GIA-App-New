@@ -9,6 +9,8 @@ import 'package:academy/res/icons.dart';
 import 'package:academy/res/images_urls.dart';
 import 'package:academy/routers/routers_name.dart';
 import 'package:academy/theme/colors/light_colors.dart';
+import 'package:academy/util/player_selector.dart';
+import 'package:academy/util/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -203,6 +205,61 @@ class _NavDrawerState extends State<NavDrawer> {
             //     Get.toNamed(RouteName.paymentPage),
             //   },
             // ),
+            // Player Toggle Section
+            Divider(color: AppColors.kTextColor.withOpacity(0.3)),
+            Container(
+              child: Obx(() => ListTile(
+                    leading: Icon(
+                      Icons.video_settings,
+                      color: AppColors.kTextColor,
+                      size: 35,
+                    ),
+                    title: Text(
+                      'Video Player',
+                      style:
+                          TextStyle(color: AppColors.kTextColor, fontSize: 15),
+                    ),
+                    subtitle: Text(
+                      PlayerSelector.getPlayerDisplayName(),
+                      style: TextStyle(
+                          color: AppColors.kTextColor.withOpacity(0.7),
+                          fontSize: 12),
+                    ),
+                    trailing: SizedBox(
+                      width: 50,
+                      child: Switch(
+                        value: PlayerSelector.reactiveValue.value,
+                        onChanged: (value) {
+                          PlayerSelector.setPlayerPreference(value);
+                          setState(() {});
+                          fluttersToast(
+                            msg:
+                                'Player Changed: ${PlayerSelector.getPlayerDisplayName()}',
+                            bgColor: AppColors.kDarkBlue,
+                            textColor: AppColors.kTextColor,
+                          );
+                        },
+                        activeColor: AppColors.kLightYellow,
+                        inactiveThumbColor: AppColors.kTextColor,
+                        inactiveTrackColor:
+                            AppColors.kTextColor.withOpacity(0.3),
+                      ),
+                    ),
+                    onTap: () {
+                      // Toggle the switch
+                      final newValue = PlayerSelector.togglePlayer();
+                      setState(() {});
+                      fluttersToast(
+                        msg:
+                            'Player Changed: ${PlayerSelector.getPlayerDisplayName()}',
+                        bgColor: AppColors.kDarkBlue,
+                        textColor: AppColors.kTextColor,
+                      );
+                    },
+                  )),
+            ),
+            Divider(color: AppColors.kTextColor.withOpacity(0.3)),
+
             ListTile(
               leading: Image.asset(
                 width: 35,

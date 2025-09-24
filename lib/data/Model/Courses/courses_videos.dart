@@ -31,12 +31,12 @@ class CoursesVideoList {
   String? id;
   String? videoTitle;
   String? videoName;
-  dynamic  videoType;
+  dynamic videoType;
   String? courseAlbumId;
-  dynamic  duration;
-  dynamic  imageName;
+  dynamic duration;
+  dynamic imageName;
   dynamic videoTag;
-   dynamic uploaderId;
+  dynamic uploaderId;
   String? processed;
   String? createdAt;
   String? updatedAt;

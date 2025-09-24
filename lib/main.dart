@@ -3,6 +3,7 @@ import 'package:academy/View/studentDashboard/Wallet/DB/db_helper.dart';
 import 'package:academy/ViewModel/controllers/auth_controller.dart';
 import 'package:academy/routers/routers.dart';
 import 'package:academy/theme/colors/light_colors.dart';
+import 'package:academy/util/player_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -30,6 +31,9 @@ Future<void> main() async {
   await DBHelper.internal();
   final String languageCode = Hive.box('box').get('lang_code') ?? '';
   final String local = Hive.box('box').get('local') ?? '';
+
+  // Initialize player selector
+  PlayerSelector.init();
 
   runApp(MyApp(
     languageCode: languageCode,
