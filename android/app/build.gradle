@@ -49,13 +49,6 @@ android {
         viewBinding true
     }
     
-    // Add dependency resolution strategy for NewPipeExtractor
-    configurations.all {
-        resolutionStrategy {
-            force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10'
-        }
-    }
 }
 
 flutter {
@@ -68,8 +61,8 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer:2.19.1"
     implementation "com.google.android.exoplayer:extension-mediasession:2.19.1"
 
-    // NewPipe extractor - use stable version number
-    implementation 'com.github.teamnewpipe.NewPipeExtractor:NewPipeExtractor:0.24.8'
+    // NewPipe extractor - use master snapshot for compatibility
+    implementation 'com.github.teamnewpipe.NewPipeExtractor:NewPipeExtractor:master-SNAPSHOT'
 
     implementation "com.squareup.okhttp3:okhttp:4.12.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
