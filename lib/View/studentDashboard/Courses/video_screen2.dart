@@ -29,6 +29,7 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
   int _videoPositionInSeconds = 0;
   int _videoDurationInSeconds = 0;
   Timer? _positionTimer;
+  bool _hasEnteredFullscreen = false;
 
 
   String _formatDuration(Duration duration) {
@@ -42,6 +43,13 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
   @override
   void initState() {
     super.initState();
+    
+    // Validate video ID
+    if (widget.videoName != null && widget.videoName!.isEmpty) {
+      print('ERROR: Video ID is empty!');
+      return;
+    }
+    
     _controller = YoutubePlayerController(
       params: const YoutubePlayerParams(
         showVideoAnnotations: false,
@@ -51,8 +59,8 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
         playsInline: false,
         enableJavaScript: true,
         loop: false,
-        showControls: false,
-        mute: false,
+        showControls: true, // Enable controls so user can see the player
+        mute: true, // Start muted to bypass autoplay restrictions
         showFullscreenButton: false,
       ),
     );
@@ -64,9 +72,47 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
       }
     });
 
-    if (widget.videoName != null) {
-      _controller.loadVideoById(videoId: widget.videoName!);
+    if (widget.videoName != null && widget.videoName!.isNotEmpty) {
+      final videoId = widget.videoName!.trim();
+      print('========================================');
+      print('Loading YouTube Video');
+      print('Video ID: $videoId');
+      print('Video ID Length: ${videoId.length}');
+      print('Video URL: https://www.youtube.com/watch?v=$videoId');
+      print('Testing URL: https://www.youtube.com/embed/$videoId');
+      print('========================================');
+      
+      try {
+        _controller.loadVideoById(videoId: videoId, startSeconds: 0);
+      } catch (e) {
+        print('ERROR loading video: $e');
+      }
+      
+      // Try to play the video after a delay (multiple attempts)
+      Future.delayed(Duration(milliseconds: 2000), () {
+        if (mounted) {
+          try {
+            print('Attempting to play video after load (attempt 1)...');
+            _controller.playVideo();
+          } catch (e) {
+            print('Error playing video initially: $e');
+          }
+        }
+      });
+      
+      // Second attempt after longer delay
+      Future.delayed(Duration(milliseconds: 3500), () {
+        if (mounted) {
+          try {
+            print('Attempting to play video after load (attempt 2)...');
+            _controller.playVideo();
+          } catch (e) {
+            print('Error playing video on second attempt: $e');
+          }
+        }
+      });
     } else {
+      print('Loading YouTube Playlist with ${_videoIds.length} videos');
       _controller.loadPlaylist(
         list: _videoIds,
         listType: ListType.playlist,
@@ -74,20 +120,136 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
       );
     }
 
-    // Force fullscreen mode when entering the screen
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _controller.enterFullScreen();
+    // Note: Error handling will be done in the listen callback
+
+    // Wait for player to be ready before entering fullscreen
+    _controller.listen((value) async {
+      // Check for errors in the player value
+      if (value.hasError) {
+        print('========================================');
+        print('YouTube Player Error Detected!');
+        print('Error: ${value.error}');
+        print('Video ID: ${widget.videoName}');
+        print('Video URL: https://www.youtube.com/watch?v=${widget.videoName}');
+        print('========================================');
+      }
+      
+      // Log all player state changes for debugging
+      print('Player State Changed: ${value.playerState}');
+      
+      if (_hasEnteredFullscreen) return;
+      
+      // Handle video being cued - try to play it
+      if (value.playerState == PlayerState.cued) {
+        print('Video is cued, attempting to play...');
+        try {
+          Future.delayed(Duration(milliseconds: 500), () {
+            if (mounted && !_hasEnteredFullscreen) {
+              _controller.playVideo();
+            }
+          });
+        } catch (e) {
+          print('Error attempting to play video: $e');
+        }
+      }
+      
+      // Handle unStarted state - video loaded but not playing
+      if (value.playerState == PlayerState.unStarted) {
+        print('Video is unStarted, attempting to play...');
+        try {
+          Future.delayed(Duration(milliseconds: 800), () {
+            if (mounted && !_hasEnteredFullscreen) {
+              print('Calling playVideo() from unStarted state...');
+              _controller.playVideo();
+            }
+          });
+        } catch (e) {
+          print('Error attempting to play video from unStarted: $e');
+        }
+      }
+      
+      // Handle buffering state - video might be ready to play
+      if (value.playerState == PlayerState.buffering) {
+        print('Video is buffering...');
+        // Try to play after buffering completes
+        Future.delayed(Duration(milliseconds: 1500), () {
+          if (mounted && !_hasEnteredFullscreen) {
+            try {
+              // Check current state and try to play
+              print('Attempting to play after buffering...');
+              _controller.playVideo();
+            } catch (e) {
+              print('Error playing after buffering: $e');
+            }
+          }
+        });
+      }
+      
+      if (value.playerState == PlayerState.playing || 
+          value.playerState == PlayerState.paused) {
+        // Check if both metadata and videoData are available (indicates player is fully ready)
+        try {
+          final metadata = await _controller.metadata;
+          final videoData = await _controller.videoData;
+          
+          // Unmute the video once it starts playing
+          if (value.playerState == PlayerState.playing) {
+            try {
+              _controller.unMute();
+              print('Video unmuted after starting to play');
+            } catch (e) {
+              print('Error unmuting video: $e');
+            }
+          }
+          
+          // Print video information
+          print('========================================');
+          print('YouTube Video Started Playing');
+          print('Video ID: ${videoData.videoId}');
+          print('Video Title: ${metadata.title}');
+          print('Video Author: ${metadata.author}');
+          print('Video Duration: ${metadata.duration}');
+          print('Player State: ${value.playerState}');
+          print('========================================');
+          
+          // Both are available, player is ready
+          if (!_hasEnteredFullscreen && mounted) {
+            _hasEnteredFullscreen = true;
+            // Add longer delay to ensure YouTube JS API is fully initialized
+            Future.delayed(Duration(milliseconds: 2500), () {
+              if (mounted) {
+                try {
+                  print('Entering fullscreen mode for video: ${videoData.videoId}');
+                  _controller.enterFullScreen();
+                } catch (e) {
+                  print('Error entering fullscreen: $e');
+                }
+              }
+            });
+          }
+        } catch (e) {
+          // Player data not ready yet, log the error
+          print('Error getting video metadata/data: $e');
+        }
+      }
     });
 
     // Start periodic timer to track position
     _positionTimer = Timer.periodic(Duration(milliseconds: 500), (_) async {
-      final position = await _controller.currentTime;
-      final duration = (await _controller.metadata).duration.inSeconds;
-      if (mounted) {
-        setState(() {
-          _videoPositionInSeconds = position.toInt();
-          _videoDurationInSeconds = duration;
-        });
+      if (!mounted) return;
+      try {
+        final position = await _controller.currentTime;
+        final metadata = await _controller.metadata;
+        final duration = metadata.duration.inSeconds;
+        if (mounted) {
+          setState(() {
+            _videoPositionInSeconds = position.toInt();
+            _videoDurationInSeconds = duration;
+          });
+        }
+      } catch (e) {
+        // Handle errors silently to avoid crashes
+        print('Error updating video position: $e');
       }
     });
   }
@@ -261,6 +423,12 @@ class _NewVideoScreenState extends State<NewVideoScreen> {
 
   @override
   void dispose() {
+    print('========================================');
+    print('Video Screen Disposed');
+    if (widget.videoName != null) {
+      print('Closing video: ${widget.videoName}');
+    }
+    print('========================================');
     _positionTimer?.cancel();
     _controller.close();
 

@@ -3,7 +3,7 @@
 import 'dart:developer';
 
 import 'package:academy/View/commonPage/background.dart';
-import 'package:academy/View/studentDashboard/Courses/video_screen2.dart';
+import 'package:academy/View/studentDashboard/Courses/video_screen3.dart';
 import 'package:academy/View/studentDashboard/Courses/video_screen_page.dart';
 import 'package:academy/ViewModel/controllers/getmycourses_controller.dart';
 import 'package:academy/data/Model/Courses/courses_videos.dart';

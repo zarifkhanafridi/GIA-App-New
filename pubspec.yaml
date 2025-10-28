@@ -55,7 +55,7 @@ dependencies:
   video_player: ^2.7.0
   vimeo_player_flutter: ^0.1.0
   pod_player: ^0.2.1
-  youtube_player_iframe: ^5.0.0
+  youtube_player_iframe: ^5.2.2
   flutter_prevent_screenshot: ^0.0.1+16
   youtube_player_embed: ^1.6.0
 
