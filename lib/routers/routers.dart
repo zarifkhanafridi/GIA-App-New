@@ -20,6 +20,7 @@ import 'package:academy/View/studentDashboard/Wallet/payment_page.dart';
 import 'package:academy/View/studentDashboard/offercourses/courses_list_page.dart';
 import 'package:academy/View/studentDashboard/offercourses/widgets/single_courses_list_detail.dart';
 import 'package:academy/View/studentDashboard/student_dashbaord.dart';
+import 'package:academy/View/studentDashboard/Courses/video_screen4.dart';
 import 'package:academy/ViewModel/controllers/forgot_password_controller.dart';
 import 'package:academy/routers/routers_name.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -121,6 +122,10 @@ class AppRoutes {
         GetPage(
           name: RouteName.myWalletPage,
           page: () => MyWalletPage(),
+        ),
+        GetPage(
+          name: RouteName.testVideoScreen,
+          page: () => NewVideoScreen(videoName: 'a8HE2miDGvk'), // Test video directly
         ),
       ];
 }

@@ -27,4 +27,5 @@ class RouteName {
   static const String finalTestDetailPage = '/finalTestDetailPage';
   static const String buyTestPage = '/BuyTestPage';
   static const String myWalletPage = '/myWalletPage';
+  static const String testVideoScreen = '/testVideoScreen';
 }

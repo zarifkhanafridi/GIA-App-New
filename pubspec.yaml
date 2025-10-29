@@ -14,7 +14,7 @@ dependencies:
   http: ^1.1.2
   hive_flutter: ^1.1.0
   flutter_svg: ^2.0.9
-  # youtube_player_flutter: ^8.1.2
+  youtube_player_flutter: ^9.1.3
   html: ^0.15.4
   package_info_plus: ^8.3.0
   flutter_platform_widgets: ^7.0.1
@@ -55,9 +55,10 @@ dependencies:
   video_player: ^2.7.0
   vimeo_player_flutter: ^0.1.0
   pod_player: ^0.2.1
-  youtube_player_iframe: ^5.2.2
+  youtube_player_iframe: ^5.2.1
   flutter_prevent_screenshot: ^0.0.1+16
   youtube_player_embed: ^1.6.0
+  flutter_inappwebview: ^6.1.5
 
 dependency_overrides:
   invoiceninja: ^0.0.11 # Keep the desired invoiceninja version

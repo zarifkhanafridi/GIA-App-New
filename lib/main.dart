@@ -2,6 +2,7 @@ import 'package:academy/View/commonPage/splash_screen.dart';
 import 'package:academy/View/studentDashboard/Wallet/DB/db_helper.dart';
 import 'package:academy/ViewModel/controllers/auth_controller.dart';
 import 'package:academy/routers/routers.dart';
+import 'package:academy/routers/routers_name.dart';
 import 'package:academy/theme/colors/light_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -75,7 +76,9 @@ class MyApp extends StatelessWidget {
             ),
             getPages: AppRoutes.appRoute(),
             // initialBinding: InitialBinding(),
-            home: SplashPage(),
+            home: SplashPage(), // Commented out for testing
+            // // TEST: Use initialRoute to test video directly
+            // initialRoute: RouteName.testVideoScreen,
           );
         });
   }
